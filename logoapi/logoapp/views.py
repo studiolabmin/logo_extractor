@@ -59,9 +59,7 @@ def download_images(request):
     buffer = BytesIO()
     with zipfile.ZipFile(buffer, "w") as z:
         for image_path in total_images:
-            z.write(image_path)
-        for image_path in manipulated_image_paths:
-            z.write(image_path)
+            z.write("/static/"+image_path)
     buffer.seek(0)
     response.write(buffer.read())
         
