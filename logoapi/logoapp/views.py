@@ -20,7 +20,7 @@ def get_images(request):
     image_paths = [i.strip() for i in image_paths]
     manipulated_image_paths = []
     for ori_path in image_paths:
-        new_path = './static/img/'+'manipulated_' + os.path.basename(ori_path)
+        new_path = 'img/'+'manipulated_' + os.path.basename(ori_path)
         manipulated_image_paths.append(new_path)
         cmd = ['python3', './logoapp/src/remove_bg.py', ori_path, new_path]
         out=subprocess.run(cmd).stdout
@@ -30,9 +30,8 @@ def get_images(request):
     print(f"total_images:{total_images}")
     # Load the image_template.html template and render it with the image paths
     template = loader.get_template('images.html')
-    context = {'image_paths': image_paths+manipulated_image_paths}
+    context = {'image_paths': total_images}
     html = template.render(context)
-
     # Return the HTML response
     return HttpResponse(html)
 
@@ -47,7 +46,7 @@ def download_images(request):
     
     manipulated_image_paths = []
     for ori_path in image_paths:
-        new_path = './static/img/'+'manipulated_' + os.path.basename(ori_path)
+        new_path = 'img/'+'manipulated_' + os.path.basename(ori_path)
         manipulated_image_paths.append(new_path)
         cmd = ['python3', './logoapp/src/remove_bg.py', ori_path, new_path]
         out=subprocess.run(cmd).stdout
@@ -57,10 +56,10 @@ def download_images(request):
     response = HttpResponse(content_type='application/zip')
     response['Content-Disposition'] = f'attachment; filename="images.zip"'
         
-        # Zip the images and write to response
+    # Zip the images and write to response
     buffer = BytesIO()
     with zipfile.ZipFile(buffer, "w") as z:
-        for image_path in image_paths:
+        for image_path in total_images:
             z.write(image_path)
         for image_path in manipulated_image_paths:
             z.write(image_path)
