@@ -25,7 +25,9 @@ def get_images(request):
         cmd = ['python3', './logoapp/src/remove_bg.py', ori_path, new_path]
         out=subprocess.run(cmd).stdout
     #return JsonResponse({'image_paths': manipulated_image_paths})
-
+    total_images=image_paths+manipulated_image_paths
+    total_images=[img[img.find("img"):] for img in total_images]
+    print(f"total_images:{total_images}")
     # Load the image_template.html template and render it with the image paths
     template = loader.get_template('images.html')
     context = {'image_paths': image_paths+manipulated_image_paths}

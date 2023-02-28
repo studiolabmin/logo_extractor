@@ -7,7 +7,7 @@
 <body>
   {% for image_path in image_paths %}
     {{image_path}}<br>
-    <img src="{{ image_path }}" alt="Image"> <br><br><br>
+    <img src="{% static '{{ image_path }}' %" alt="Image"> <br><br><br>
   {% endfor %}
 </body>
 </html>
