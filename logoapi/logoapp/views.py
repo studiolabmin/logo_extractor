@@ -14,7 +14,7 @@ from django.template import loader
 def get_images(request):
     url = request.GET.get('url')
     # Call crawler.py and get the list of image paths
-    cmd = ['python', './logoapp/src/crawler.py', url]
+    cmd = ['python3', './logoapp/src/crawler.py', url]
     out=subprocess.run(cmd, stdout=subprocess.PIPE)
     image_paths = out.stdout.decode().strip().split('\n')
     image_paths = [i.strip() for i in image_paths]
@@ -22,7 +22,7 @@ def get_images(request):
     for ori_path in image_paths:
         new_path = './static/img/'+'manipulated_' + os.path.basename(ori_path)
         manipulated_image_paths.append(new_path)
-        cmd = ['python', './logoapp/src/remove_bg.py', ori_path, new_path]
+        cmd = ['python3', './logoapp/src/remove_bg.py', ori_path, new_path]
         out=subprocess.run(cmd).stdout
     #return JsonResponse({'image_paths': manipulated_image_paths})
     total_images=image_paths+manipulated_image_paths
