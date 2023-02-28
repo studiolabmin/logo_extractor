@@ -50,8 +50,7 @@ def download_images(request):
         manipulated_image_paths.append(new_path)
         cmd = ['python3', './logoapp/src/remove_bg.py', ori_path, new_path]
         out=subprocess.run(cmd).stdout
-        
-        
+    total_images=image_paths+manipulated_image_paths
     # Create a response object
     response = HttpResponse(content_type='application/zip')
     response['Content-Disposition'] = f'attachment; filename="images.zip"'
