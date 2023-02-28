@@ -3,11 +3,26 @@
 <html>
 <head>
   <title>Images</title>
+  <style>
+    input[type=submit] {
+      font-size: 20px;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body>
-  {% for image_path in image_paths %}
-    {{image_path}}<br>
-    <img src="{% static image_path %}" alt="Image"> <br><br><br>
-  {% endfor %}
-</body>
+<form method="post" action="{% url 'get_images' %}">
+    {% csrf_token %}
+    {% for image_path in image_paths %}
+      <input type="checkbox" name="selected_images" value="{{ image_path }}">
+      {{ image_path }}<br>
+      <img src="{% static image_path %}" alt="Image"> <br><br><br>
+    {% endfor %}
+    <input type="submit" value="Download Selected Images">
+  </form>
+  <br><br><br><br><br>
 </html>

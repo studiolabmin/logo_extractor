@@ -1,7 +1,6 @@
 from django.urls import re_path,path,include
-from logoapp.views import get_images,download_images
-
+from logoapp.views import get_images,home
 urlpatterns = [
-    path('save/', get_images, name='get_images'),
-    path('download/', download_images, name='download_images'),
+    path('', home, name='home'),
+    path('save/', get_images, name='get_images')
 ]

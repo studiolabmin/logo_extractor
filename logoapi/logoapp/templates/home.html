@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Page</title>
+  <script>
+    function showMessage() {
+      var message = document.getElementById("message");
+      message.style.display = "block";
+    }
+  </script>
+</head>
+<body>
+  <h1>Enter the url</h1>
+  <h3>The url should start with "https://" or "http://", and end with ".com", ".co.kr", ".kr"</h3>
+  <h3>Some webpages are not organized to extract logo image.....</h3>
+  Example
+  <ul>
+      https://black-up.kr
+  </ul>
+  <ul>
+      http://66girls.com
+  </ul>
+  <ul>
+      http://www.xexymix.com
+  </ul>
+  <form method="post" action="{% url 'home' %}" onsubmit="showMessage()">
+    {% csrf_token %}
+    <input type="text" name="text">
+    <input type="submit" value="Submit">
+  </form>
+  <div id="message" style="display: none;"><h3>Extracting logo images... Please wait</h3></div>
+</body>
+</html>

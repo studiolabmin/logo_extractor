@@ -1,21 +1,30 @@
 import cv2
 import numpy as np
-
-
+import cairosvg
+import os
 def remove_background(input_path, output_path):
     print(f"input: {input_path}, output: {output_path}")
    
     # 이미지 불러오기
-    img = cv2.imread(input_path)
+    
     if input_path.endswith('png'): #convert to jpg
         print("Convert .png to .jpg")
         img=cv2.imread(input_path,cv2.IMREAD_UNCHANGED)
         trans_mask =img[:,:,3]==0 # 투명한 부분이 mask가 됨
         img[trans_mask]=[255,255,255,255]
         
-        # jpg_path = input_path.split('/')[0]+'.jpg'
-        # cv2.imwrite(jpg_path, img, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
-        # img = cv2.imread(jpg_path)
+    elif input_path.endswith("svg"):
+        print("Convert .svg to .jpg")
+        png_path='./static/img/converted_'+os.path.basename(input_path).split('.')[0]+".png"
+        print(f"png_path:{png_path}")
+        cairosvg.svg2png(url=input_path, write_to=png_path)
+        # Read the PNG file using OpenCV
+        img = cv2.imread(png_path,cv2.IMREAD_UNCHANGED)
+        trans_mask =img[:,:,3]==0 # 투명한 부분이 mask가 됨
+        img[trans_mask]=[255,255,255,255]
+    
+    else:
+        img = cv2.imread(input_path)
         
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 

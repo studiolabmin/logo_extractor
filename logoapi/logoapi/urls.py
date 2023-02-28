@@ -18,7 +18,6 @@ from django.urls import path, include, re_path
 from logoapp import views
 from django.conf.urls.static import static
 from django.conf import settings
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("logo/",include("logoapp.urls"))

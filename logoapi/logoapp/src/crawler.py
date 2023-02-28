@@ -15,11 +15,11 @@ def save_logo(logo_element,url,count):
   #print(image_url)
   response = requests.get(image_url,headers={"User-Agent": "Mozilla/5.0"})
   ext="."+image_src.split('.')[-1]
-  if ext in ['.png','.jpg']:
-    filename="./static/img/"+f'{shop}_{count}'+ext
-    with open(filename, 'wb') as f:
-        f.write(response.content)
-        print(filename)
+  #if ext in ['.png','.jpg']:
+  filename="./static/img/"+f'{shop}_{count}'+ext
+  with open(filename, 'wb') as f:
+    f.write(response.content)
+    print(filename)
         #print(f'Logo image saved as {filename}')
 
 def extract_logo_image(url):
