@@ -9,6 +9,8 @@ from .src.crawler import extract_logo_image
 from .src.remove_bg import remove_background
 from io import BytesIO
 import zipfile
+from django.template import loader
+
 def get_images(request):
     url = request.GET.get('url')
     # Call crawler.py and get the list of image paths
@@ -22,7 +24,16 @@ def get_images(request):
         manipulated_image_paths.append(new_path)
         cmd = ['python3', './logoapp/src/remove_bg.py', ori_path, new_path]
         out=subprocess.run(cmd).stdout
-    return JsonResponse({'image_paths': manipulated_image_paths})
+    #return JsonResponse({'image_paths': manipulated_image_paths})
+
+    # Load the image_template.html template and render it with the image paths
+    template = loader.get_template('image_template.html')
+    context = {'image_paths': image_paths+manipulated_image_paths}
+    html = template.render(context)
+
+    # Return the HTML response
+    return HttpResponse(html)
+
 
 def download_images(request):
     url = request.GET.get('url')
