@@ -20,7 +20,7 @@ def get_images(request):
     image_paths = [i.strip() for i in image_paths]
     manipulated_image_paths = []
     for ori_path in image_paths:
-        new_path = '/static/img/'+'manipulated_' + os.path.basename(ori_path)
+        new_path = './static/img/'+'manipulated_' + os.path.basename(ori_path)
         manipulated_image_paths.append(new_path)
         cmd = ['python3', './logoapp/src/remove_bg.py', ori_path, new_path]
         out=subprocess.run(cmd).stdout
