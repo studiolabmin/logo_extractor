@@ -61,7 +61,7 @@ def download_images(request):
         for image_path in image_paths:
             z.write(image_path)
         for image_path in manipulated_image_paths:
-            z.write("/static/"+image_path)
+            z.write("./static/"+image_path)
     buffer.seek(0)
     response.write(buffer.read())
         
