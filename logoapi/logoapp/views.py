@@ -27,7 +27,7 @@ def get_images(request):
     #return JsonResponse({'image_paths': manipulated_image_paths})
 
     # Load the image_template.html template and render it with the image paths
-    template = loader.get_template('image_template.html')
+    template = loader.get_template('images.html')
     context = {'image_paths': image_paths+manipulated_image_paths}
     html = template.render(context)
 
